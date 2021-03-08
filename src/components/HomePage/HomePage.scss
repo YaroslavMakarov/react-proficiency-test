@@ -1,0 +1,34 @@
+.homepage {
+
+    &__container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+
+    &__link {
+        margin-bottom: 10px;
+        text-decoration: none;
+        display: block;
+        height: 40px;
+        width: 120px;
+        line-height: 40px;
+        font-size: 20px;
+        color: #494949;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #ffffff;
+        padding: 20px;
+        border: 4px solid #494949;
+        transition: all 0.4s ease 0s;
+    }
+
+    &__link:hover {
+        color: #ffffff;
+        background: #f6b93b;
+        border-color: #f6b93b;
+        transition: all 0.4s ease 0s;
+    }
+}
