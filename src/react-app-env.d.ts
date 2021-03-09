@@ -9,7 +9,7 @@ interface Origin {
     url: string;
 }
 
-interface Characters {
+interface Character {
     creacted: string;
     episode: Array<string>;
     id: number;
@@ -21,4 +21,5 @@ interface Characters {
     status: string;
     type: string;
     url: string;
+    gender: string;
 }
