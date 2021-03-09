@@ -14,6 +14,7 @@ export type State = {
 const store: Store<State> = createStore(allReducers, applyMiddleware(thunk));
 
 //characters selector
-export const churactersSelector = (state: State) => state.charactersInfo.characters
+export const churactersSelector = (state: State) => state.charactersInfo.characters;
+export const nextSelector = (state: State) => state.charactersInfo.next;
 
 export default store;

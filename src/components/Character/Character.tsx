@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { urlNumber } from '../../helpers/urlNumber';
+import { urlNumber } from '../../helpers/urlUtility';
 
 import './Character.scss';
 
@@ -61,6 +61,7 @@ const Character: React.FC<Props> = ({ character }) => {
             Episodes:
             {episodesNumbers.map(number => (
                 <Link
+                    key={number}
                     className="character__link"
                     to={`/episodes/${number}`}
                 >

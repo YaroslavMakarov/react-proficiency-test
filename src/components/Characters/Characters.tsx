@@ -1,32 +1,40 @@
-import { useEffect, Dispatch, useRef } from "react";
+import { useEffect, Dispatch, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import './Characters.scss';
-import { CharactersThunk, loadingPersons } from "../../store/charactersReucer";
-import { churactersSelector } from "../../store/rootStore";
+import { CharactersThunk, lazyLoading, loadingCharacters } from "../../store/charactersReucer";
+import { churactersSelector, nextSelector } from "../../store/rootStore";
 import Character from "../Character/Character";
+import { urlParam } from "../../helpers/urlUtility";
 
 const Characters = () => {
     const personThunkDispatch = useDispatch<Dispatch<CharactersThunk>>();
-
     const pageEnd = useRef<HTMLDivElement>(null);
-
     const characters = useSelector(churactersSelector);
+    const next = useSelector(nextSelector);
+    let [isLazyLoad, setLazyLoad] = useState(false);
 
     useEffect(() => {
-        personThunkDispatch(loadingPersons());
-    }, []);
+        personThunkDispatch(loadingCharacters());
 
-    useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
-            console.log(entries[0].isIntersecting);
-            
+            if (entries[0].isIntersecting && next !== null) {
+                setLazyLoad(true);
+            }; 
         },
-        { rootMargin: '200px' })
+        { rootMargin: '700px' })
         if (pageEnd.current !== null) {
             observer.observe(pageEnd.current)
         }
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if(isLazyLoad) {
+            setLazyLoad(false);
+            const param = next && urlParam(next);
+            param && personThunkDispatch(lazyLoading(param));
+        }   
+    }, [isLazyLoad]);
 
     return (
         <>
@@ -38,7 +46,7 @@ const Characters = () => {
                     />
                 ))}
             </div>
-            <div className="characters__lazy-loading"ref={pageEnd}>
+            <div className="characters__lazy-loading" ref={pageEnd}>
                 Loading
             </div>
         </>
