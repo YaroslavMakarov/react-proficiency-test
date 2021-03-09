@@ -12,7 +12,7 @@ type StartLoadingCharacters = Action<typeof START_LOADING_CHARACTERS> & {
     isLoading: boolean;
 };
 type SuccessLoadingCharacters = Action<typeof SUCCESS_LOADING_CHARACTERS> & {
-    characters: Array<Characters>;
+    characters: Array<Character>;
     next: string | null;
 };
 type ErrorLoadingCharacters = Action<typeof ERROR_LOADING_CHARACTERS> & {
@@ -22,7 +22,7 @@ export const startLoadingCharacters = (isLoading: boolean): StartLoadingCharacte
     type: START_LOADING_CHARACTERS,
     isLoading,
 });
-export const successLoadingCharacters = (characters: Array<Characters>, next: string | null): SuccessLoadingCharacters => ({
+export const successLoadingCharacters = (characters: Array<Character>, next: string | null): SuccessLoadingCharacters => ({
     type: SUCCESS_LOADING_CHARACTERS,
     characters,
     next
@@ -48,7 +48,7 @@ export const loadingPersons = (): CharactersThunk => {
 export type InitialCharactersState = {
     isLoading: boolean;
     isError: boolean;
-    characters: Array<Characters>;
+    characters: Array<Character>;
     next: string | null;
 };
 
@@ -69,7 +69,7 @@ const charactersReducer = (state = initialCharactersState, action: AllCharacters
         };
         case SUCCESS_LOADING_CHARACTERS: return {
             ...state,
-            characters: [...state.characters, ...action.characters],
+            characters: [...action.characters],
             isLoading: false,
             next: action.next
         };

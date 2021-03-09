@@ -1,0 +1,30 @@
+.character {
+
+    &__wrapper {
+        margin-bottom: 30px;
+    }
+    
+    &__bio {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    &__photo {
+        display: block;
+        width: 150px;
+        height: 200px;
+        margin-right: 20px;
+    }
+
+    &__info-wrapper {
+        text-align: left;
+    }
+
+    &__link {
+        text-decoration: none;
+        display: block;
+        color: black;
+        margin-bottom: 10px;
+    }
+}
