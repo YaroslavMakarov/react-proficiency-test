@@ -4,13 +4,16 @@ import thunk from "redux-thunk";
 import charactersReducer, { InitialCharactersState } from './charactersReucer';
 
 const allReducers = combineReducers({
-    characters: charactersReducer,
+    charactersInfo: charactersReducer,
 });
 
 export type State = {
-    characters: InitialCharactersState,
+    charactersInfo: InitialCharactersState,
 };
 
 const store: Store<State> = createStore(allReducers, applyMiddleware(thunk));
+
+//characters selector
+export const churactersSelector = (state: State) => state.charactersInfo.characters
 
 export default store;

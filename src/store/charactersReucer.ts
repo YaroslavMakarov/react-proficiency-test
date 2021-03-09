@@ -1,5 +1,4 @@
-import { Dispatch } from 'react';
-import { Action } from 'redux';
+import { Action, Dispatch } from 'redux';
 import { ThunkAction } from "redux-thunk";
 import { getData } from '../helpers/api';
 import { State } from "./rootStore";
@@ -40,7 +39,7 @@ export const loadingPersons = (): CharactersThunk => {
     return (dispatch: Dispatch<AllCharactersActions>) => {
         dispatch(startLoadingCharacters(true));
 
-        return getData('characters/?page=1')
+        return getData('character/?page=1')
             .then(data => dispatch(successLoadingCharacters(data.results, data.info.next)))
             .catch(() => dispatch(errorLoading(true)));
     };
