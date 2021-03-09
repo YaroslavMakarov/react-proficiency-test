@@ -3,8 +3,8 @@ import { combineReducers, createStore, Store } from 'redux';
 const allReducers = combineReducers({
 });
 
-type RootState = {};
+export type State = {};
 
-const store: Store<RootState> = createStore(allReducers);
+const store: Store<State> = createStore(allReducers);
 
 export default store;
