@@ -12,27 +12,27 @@ const ERROR_LAZY_LOADING = 'ERROR_LAZY_LOADING';
 const SUCCESS_LOADING_CHARACTER = 'SUCCESS_LOADING_CHARACTER';
 
 //ActionTypes and action cretors
-type StartLoadingCharacters = Action<typeof START_LOADING_CHARACTERS> & {
+export type StartLoadingCharacters = Action<typeof START_LOADING_CHARACTERS> & {
     isLoading: boolean;
 };
-type SuccessLoadingCharacters = Action<typeof SUCCESS_LOADING_CHARACTERS> & {
+export type SuccessLoadingCharacters = Action<typeof SUCCESS_LOADING_CHARACTERS> & {
     characters: Array<Character>;
     next: string | null;
 };
-type ErrorLoadingCharacters = Action<typeof ERROR_LOADING_CHARACTERS> & {
+export type ErrorLoadingCharacters = Action<typeof ERROR_LOADING_CHARACTERS> & {
     isError: boolean;
 };
-type StartLazyLoading = Action<typeof START_LAZY_LOADING> & {
+export type StartLazyLoading = Action<typeof START_LAZY_LOADING> & {
     isLazyLoading: boolean;
 };
-type SuccessLazyLoading = Action<typeof SUCCESS_LAZY_LOADING> & {
+export type SuccessLazyLoading = Action<typeof SUCCESS_LAZY_LOADING> & {
     characters: Array<Character>;
     next: string | null;
 };
-type ErrorLazyLoading = Action<typeof ERROR_LAZY_LOADING> & {
+export type ErrorLazyLoading = Action<typeof ERROR_LAZY_LOADING> & {
     isLazyError: boolean;
 }
-type SuccessLoadingCharacter = Action<typeof SUCCESS_LOADING_CHARACTER> & {
+export type SuccessLoadingCharacter = Action<typeof SUCCESS_LOADING_CHARACTER> & {
     character: Character[];
 };
 
