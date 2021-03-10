@@ -117,7 +117,7 @@ const initialLocationsState: InitialLocationState = {
 export type AllLocationsActions = StartLoadingLocations | SuccessLoadingLocations | ErrorLoadingLocations
                                    | StartLazyLocations | SuccessLazyLocations | ErrorLazyLocations | SuccessLoadingLocation;
 
-const episodesReducer = (state = initialLocationsState, action: AllLocationsActions) => {
+const locationsReducer = (state = initialLocationsState, action: AllLocationsActions) => {
     switch(action.type) {
         case START_LOADING_LOCATIONS: return {
             ...state,
@@ -158,4 +158,4 @@ const episodesReducer = (state = initialLocationsState, action: AllLocationsActi
     };
 };
                                                                 
-export default episodesReducer;
+export default locationsReducer;
