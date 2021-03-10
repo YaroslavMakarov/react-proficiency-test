@@ -7,7 +7,7 @@ import {
     CharactersThunk, errorLazyLoading, errorLoading,
     loadingCharacters, startLazyLoading, startLoadingCharacters,
     successLazyLoading, successLoadingCharacter, successLoadingCharacters 
-} from "../../store/charactersReucer";
+} from "../../store/charactersStore";
 import { churactersSelector, isLoadingSelector, nextSelector } from "../../store/rootStore";
 import Character from "../Character/Character";
 import { urlParam } from "../../helpers/urlUtility";

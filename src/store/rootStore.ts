@@ -1,14 +1,17 @@
 import { combineReducers, createStore, Store, applyMiddleware } from 'redux';
 import thunk from "redux-thunk";
 
-import charactersReducer, { InitialCharactersState } from './charactersReucer';
+import charactersReducer, { InitialCharactersState } from './charactersStore';
+import episodesReducer, { InitialEpisodesState } from './episodesStore';
 
 const allReducers = combineReducers({
     charactersInfo: charactersReducer,
+    episodesInfo: episodesReducer,
 });
 
 export type State = {
     charactersInfo: InitialCharactersState,
+    episodesInfo: InitialEpisodesState,
 };
 
 const store: Store<State> = createStore(allReducers, applyMiddleware(thunk));
