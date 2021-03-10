@@ -84,10 +84,15 @@ type ThunkActions = [
 export const loadingEpisodes = (url: string, [startLoading, successLoading, errLoading]: ThunkActions): ThunkType => {
     return (dispatch: Dispatch<AllEpisodesActions>) => {
         dispatch(startLoading(true));
-
-        return getData(url)
+        if (successLoading === successLoadingEpisode) {
+            return getData(url)
+            .then(data => dispatch(successLoading([data])))
+            .catch(() => dispatch(errLoading(true)));
+        } else {
+            return getData(url)
             .then(data => dispatch(successLoading(data.results, data.info.next)))
             .catch(() => dispatch(errLoading(true)));
+        }
     };
 };
 
@@ -143,10 +148,10 @@ const episodesReducer = (state = initialEpisodesState, action: AllEpisodesAction
             ...state,
             isLazyError: action.isLazyError,
         };
-        case SUCCESS_LOADING_EPISODES: return {
+        case SUCCESS_LOADING_EPISODE: return {
             ...state,
-            episodes: [...action.episodes],
-            isLazyLoading: false,
+            episodes: [...action.episode],
+            isLoading: false,
         };
                                 
         default: return state;
