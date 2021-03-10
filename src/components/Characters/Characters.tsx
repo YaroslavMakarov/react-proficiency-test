@@ -1,40 +1,78 @@
 import { useEffect, Dispatch, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from 'react-router';
 
 import './Characters.scss';
-import { CharactersThunk, lazyLoading, loadingCharacters } from "../../store/charactersReucer";
-import { churactersSelector, nextSelector } from "../../store/rootStore";
+import { 
+    CharactersThunk, errorLazyLoading, errorLoading,
+    loadingCharacters, startLazyLoading, startLoadingCharacters,
+    successLazyLoading, successLoadingCharacter, successLoadingCharacters 
+} from "../../store/charactersReucer";
+import { churactersSelector, isLoadingSelector, nextSelector } from "../../store/rootStore";
 import Character from "../Character/Character";
 import { urlParam } from "../../helpers/urlUtility";
+
+type Params = {
+    characterID: string;
+};
 
 const Characters = () => {
     const personThunkDispatch = useDispatch<Dispatch<CharactersThunk>>();
     const pageEnd = useRef<HTMLDivElement>(null);
     const characters = useSelector(churactersSelector);
     const next = useSelector(nextSelector);
+    const isLoading = useSelector(isLoadingSelector);
+    const isLazyLoading = useSelector(isLoadingSelector);
     let [isLazyLoad, setLazyLoad] = useState(false);
+    const params: Params = useParams();
 
     useEffect(() => {
-        personThunkDispatch(loadingCharacters());
-
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && next !== null) {
-                setLazyLoad(true);
-            }; 
-        },
-        { rootMargin: '700px' })
-        if (pageEnd.current !== null) {
-            observer.observe(pageEnd.current)
+        if (params.characterID) {
+            personThunkDispatch(loadingCharacters(`character/${params.characterID}`, [startLoadingCharacters, successLoadingCharacter, errorLoading]));
         }
+        personThunkDispatch(loadingCharacters('character/?page=1', [startLoadingCharacters, successLoadingCharacters, errorLoading]));
     }, []);
+
+    useEffect(() => {
+        if (!isLoading) {
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    setLazyLoad(true);
+                }; 
+            },
+            { rootMargin: '700px' })
+            if (pageEnd.current !== null) {
+                observer.observe(pageEnd.current)
+            }
+        }
+    }, [isLoading]);
 
     useEffect(() => {
         if(isLazyLoad) {
             setLazyLoad(false);
             const param = next && urlParam(next);
-            param && personThunkDispatch(lazyLoading(param));
+            param && personThunkDispatch(loadingCharacters(param, [startLazyLoading, successLazyLoading, errorLazyLoading]));
         }   
     }, [isLazyLoad]);
+
+    if (isLoading) {
+        return (
+            <div>
+                LOADING...
+            </div>
+        )
+    };
+
+    if (params.characterID) {
+        return (
+            <div>
+                Hello
+            </div>
+        );
+    }
+
+    console.log(params);
+    
 
     return (
         <>
@@ -46,6 +84,9 @@ const Characters = () => {
                     />
                 ))}
             </div>
+            {isLazyLoading && <div>
+                LOADING...
+            </div>}
             <div className="characters__lazy-loading" ref={pageEnd}>
                 Loading
             </div>

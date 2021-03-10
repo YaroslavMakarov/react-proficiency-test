@@ -17,17 +17,17 @@ const App = () => {
           component={HomePage}
         />
         <Route 
-          path='/characters'
+          path='/characters/:characterID?'
           exact
           component={Characters}
         />
         <Route 
-          path='/episodes'
+          path='/episodes/:episodesID?'
           exact
           component={Episodes}
         />
         <Route 
-          path='/locations'
+          path='/locations/:locationsID?'
           exact
           component={Locations}
         />
