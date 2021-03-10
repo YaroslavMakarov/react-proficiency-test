@@ -11,6 +11,7 @@ import {
 import { churactersSelector, isLoadingSelector, nextSelector } from "../../store/rootStore";
 import Character from "../Character/Character";
 import { urlParam } from "../../helpers/urlUtility";
+import ButtonBack from "../button-back/ButtonBack";
 
 type Params = {
     characterID: string;
@@ -76,6 +77,7 @@ const Characters = () => {
 
     return (
         <>
+            <ButtonBack />
             <div className="characters__wrapper">
                 {characters.map(character => (
                     <Character
