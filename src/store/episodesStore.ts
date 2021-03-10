@@ -148,10 +148,10 @@ const episodesReducer = (state = initialEpisodesState, action: AllEpisodesAction
             ...state,
             isLazyError: action.isLazyError,
         };
-        case SUCCESS_LOADING_EPISODES: return {
+        case SUCCESS_LOADING_EPISODE: return {
             ...state,
-            episodes: [...action.episodes],
-            isLazyLoading: false,
+            episodes: [...action.episode],
+            isLoading: false,
         };
                                 
         default: return state;
