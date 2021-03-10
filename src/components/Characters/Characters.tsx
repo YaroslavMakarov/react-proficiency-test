@@ -4,11 +4,11 @@ import { useParams } from 'react-router';
 
 import './Characters.scss';
 import { 
-    CharactersThunk, errorLazyLoading, errorLoading,
+    errorLazyLoading, errorLoading,
     loadingCharacters, startLazyLoading, startLoadingCharacters,
     successLazyLoading, successLoadingCharacter, successLoadingCharacters 
 } from "../../store/charactersStore";
-import { churactersSelector, isLoadingSelector, nextSelector } from "../../store/rootStore";
+import { churactersSelector, isLoadingSelector, nextSelector, ThunkType } from "../../store/rootStore";
 import Character from "../Character/Character";
 import { urlParam } from "../../helpers/urlUtility";
 import ButtonBack from "../button-back/ButtonBack";
@@ -18,7 +18,7 @@ type Params = {
 };
 
 const Characters = () => {
-    const personThunkDispatch = useDispatch<Dispatch<CharactersThunk>>();
+    const personThunkDispatch = useDispatch<Dispatch<ThunkType>>();
     const pageEnd = useRef<HTMLDivElement>(null);
     const characters = useSelector(churactersSelector);
     const next = useSelector(nextSelector);
