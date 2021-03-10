@@ -69,9 +69,9 @@ export const successLoadingEpisode = (episode: Episode[]): SuccessLoadingEpisode
 //thunks
 type StartLoadingEpisodesAC = (isLoading: boolean) => StartLoadingEpisodes;
 type StartLazyEpisodesAC = (isLazyLoading: boolean) => StartLazyEpisodes;
-type SuccessLoadingEpisodesAC = (characters: Episode[], next: string | null) => SuccessLoadingEpisodes;
-type SuccessLazyEpisodesAC = (characters: Episode[], next: string | null) => SuccessLazyEpisodes;
-type SuccessLoadingEpisodeAC = (character: Episode[]) => SuccessLoadingEpisode;
+type SuccessLoadingEpisodesAC = (episodes: Episode[], next: string | null) => SuccessLoadingEpisodes;
+type SuccessLazyEpisodesAC = (episodes: Episode[], next: string | null) => SuccessLazyEpisodes;
+type SuccessLoadingEpisodeAC = (episode: Episode[]) => SuccessLoadingEpisode;
 type ErrorLoadingEpisodesAC = (isError: boolean) => ErrorLoadingEpisodes;
 type ErrorLazyEpisodesAC = (isLazyError: boolean) => ErrorLazyEpisodes;
 

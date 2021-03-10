@@ -33,3 +33,13 @@ interface Episode {
     name: string;
     url: string;
 }
+
+interface Location {
+    created: string;
+    dimencion: string;
+    id: number;
+    name: string;
+    residents: string[];
+    type: string;
+    url: string;
+}
