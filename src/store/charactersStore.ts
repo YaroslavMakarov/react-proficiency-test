@@ -1,7 +1,6 @@
 import { Action, Dispatch } from 'redux';
-import { ThunkAction } from "redux-thunk";
 import { getData } from '../helpers/api';
-import { State } from "./rootStore";
+import { ThunkType } from './rootStore';
 
 const START_LOADING_CHARACTERS = 'START_LOADING_CHARACTERS';
 const SUCCESS_LOADING_CHARACTERS = 'SUCCESS_LOADING_CHARACTERS';
@@ -68,7 +67,6 @@ export const successLoadingCharacter = (character: Character[]): SuccessLoadingC
 }); 
 
 //thunks
-export type CharactersThunk = ThunkAction<void, State, unknown, Action<string>>;
 type ThunkActions = [
     (((isLoading: boolean) => StartLoadingCharacters) | ((isLazyLoading: boolean) => StartLazyLoading)),
     (((characters: Character[], next: string | null) => SuccessLoadingCharacters)
@@ -77,7 +75,7 @@ type ThunkActions = [
     (((isError: boolean) => ErrorLoadingCharacters) | ((isLazyError: boolean) => ErrorLazyLoading))
 ];
 
-export const loadingCharacters = (url: string, [startLoading, successLoading, errLoading]: ThunkActions): CharactersThunk => {
+export const loadingCharacters = (url: string, [startLoading, successLoading, errLoading]: ThunkActions): ThunkType => {
     return (dispatch: Dispatch<AllCharactersActions>) => {
         dispatch(startLoading(true));
 
