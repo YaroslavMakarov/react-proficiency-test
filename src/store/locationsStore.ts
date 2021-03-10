@@ -101,7 +101,7 @@ export type InitialLocationState = {
     isError: boolean;
     isLazyLoading: boolean;
     isLazyError: boolean;
-    locations: Array<Episode>;
+    locations: Array<Location>;
     next: string | null;
 };
 
