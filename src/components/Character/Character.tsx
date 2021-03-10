@@ -57,7 +57,7 @@ const Character: React.FC<Props> = ({ character }) => {
         >
             Origin: {origin.name}
         </Link>
-        <div className="characters__episodes">
+        <div className="character__episodes">
             Episodes:
             {episodesNumbers.map(number => (
                 <Link

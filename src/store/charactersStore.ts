@@ -67,21 +67,32 @@ export const successLoadingCharacter = (character: Character[]): SuccessLoadingC
 }); 
 
 //thunks
-type ThunkActions = [
-    (((isLoading: boolean) => StartLoadingCharacters) | ((isLazyLoading: boolean) => StartLazyLoading)),
-    (((characters: Character[], next: string | null) => SuccessLoadingCharacters)
-    | ((characters: Character[], next: string | null) => SuccessLazyLoading)
-    | ((character: Character[]) => SuccessLoadingCharacter)),
-    (((isError: boolean) => ErrorLoadingCharacters) | ((isLazyError: boolean) => ErrorLazyLoading))
+type StartLoadingCharacktersAC = (isLoading: boolean) => StartLoadingCharacters;
+type StartLazyLoadingCharacktersAC = (isLazyLoading: boolean) => StartLazyLoading;
+type SuccessLoadingCharactersAC = (characters: Character[], next: string | null) => SuccessLoadingCharacters;
+type SuccessLazyLoadingCharactersAC = (characters: Character[], next: string | null) => SuccessLazyLoading;
+type SuccessLoadingCharacterAC = (character: Character[]) => SuccessLoadingCharacter;
+type ErrorLoadingCharactersAC = (isError: boolean) => ErrorLoadingCharacters;
+type ErrorLazyLoadingAC = (isLazyError: boolean) => ErrorLazyLoading;
+
+type CharactersAC = [
+    (StartLoadingCharacktersAC | StartLazyLoadingCharacktersAC),
+    (SuccessLoadingCharactersAC | SuccessLazyLoadingCharactersAC | SuccessLoadingCharacterAC),
+    (ErrorLoadingCharactersAC | ErrorLazyLoadingAC),
 ];
 
-export const loadingCharacters = (url: string, [startLoading, successLoading, errLoading]: ThunkActions): ThunkType => {
+export const loadingCharacters = (url: string, [startLoading, successLoading, errLoading]: CharactersAC): ThunkType => {
     return (dispatch: Dispatch<AllCharactersActions>) => {
         dispatch(startLoading(true));
-
-        return getData(url)
+        if (successLoading === successLoadingCharacter) {
+            return getData(url)
+            .then(data => dispatch(successLoading([data])))
+            .catch(() => dispatch(errLoading(true)));
+        } else {
+            return getData(url)
             .then(data => dispatch(successLoading(data.results, data.info.next)))
             .catch(() => dispatch(errLoading(true)));
+        }
     };
 };
 
@@ -140,7 +151,7 @@ const charactersReducer = (state = initialCharactersState, action: AllCharacters
         case SUCCESS_LOADING_CHARACTER: return {
             ...state,
             characters: [...action.character],
-            isLazyLoading: false,
+            isLoading: false,
         };
 
         default: return state;

@@ -1,5 +1,6 @@
 import { combineReducers, createStore, Store, applyMiddleware, Action } from 'redux';
 import thunk, { ThunkAction } from "redux-thunk";
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import charactersReducer, { InitialCharactersState } from './charactersStore';
 import episodesReducer, { InitialEpisodesState } from './episodesStore';
@@ -16,7 +17,7 @@ export type State = {
     episodesInfo: InitialEpisodesState,
 };
 
-const store: Store<State> = createStore(allReducers, applyMiddleware(thunk));
+const store: Store<State> = createStore(allReducers, composeWithDevTools(applyMiddleware(thunk)));
 
 //characters selector
 export const churactersSelector = (state: State) => state.charactersInfo.characters;

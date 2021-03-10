@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { errorLoadingEpisodes, loadingEpisodes, startLoadingEpisodes, successLoadingEpisode, successLoadingEpisodes } from '../../store/episodesStore';
 import { episodesSelector, ThunkType } from '../../store/rootStore';
+import Episode from '../Episode/Episode';
 
 type Params = {
     episodeID: string;
@@ -17,8 +18,9 @@ const Episodes = () => {
     useEffect(() => {
         if (params.episodeID) {
             episodeThunkDispatch(loadingEpisodes(`episode/${params.episodeID}`, [startLoadingEpisodes, successLoadingEpisode, errorLoadingEpisodes]));
-        }
-        episodeThunkDispatch(loadingEpisodes('episode/?page=1', [startLoadingEpisodes, successLoadingEpisodes, errorLoadingEpisodes]));
+        } else {
+            episodeThunkDispatch(loadingEpisodes('episode/?page=1', [startLoadingEpisodes, successLoadingEpisodes, errorLoadingEpisodes]));
+        }  
     }, []);
 
     console.log(episodes);
@@ -26,7 +28,12 @@ const Episodes = () => {
 
     return (
         <div>
-            Episodes
+            {episodes.map(episode => (
+                <Episode
+                    key={episode.id}
+                    epis={episode}
+                />
+            ))}
         </div>
     );
 };
