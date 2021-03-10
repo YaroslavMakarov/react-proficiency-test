@@ -7,9 +7,11 @@ import { urlParam } from '../../helpers/urlUtility';
 import { errorLazyLocations, errorLoadingLocations, loadingLocations, startLazyLocations, startLoadingLocations, successLazyLocations, successLoadingLocation, successLoadingLocations } from '../../store/locationsStore';
 import { isLazyLoadingLocationSelector, isLoadingLocationsSelector, locationsSelector, nextLocationsSelector, ThunkType } from '../../store/rootStore';
 import ButtonBack from '../button-back/ButtonBack';
+import Location from '../Location/Location';
+import './Locations.scss';
 
 type Params = {
-    locationID: string;
+    locationsID: string;
 };
 
 const Locations = () => {
@@ -23,10 +25,10 @@ const Locations = () => {
     let [isLazyLoad, setLazyLoad] = useState(false);
 
     useEffect(() => {
-        if (params.locationID) {
-            locationThunkDispatch(loadingLocations(`location/${params.locationID}`, [startLoadingLocations, successLoadingLocation, errorLoadingLocations]));
+        if (params.locationsID) {
+            locationThunkDispatch(loadingLocations(`location/${params.locationsID}`, [startLoadingLocations, successLoadingLocation, errorLoadingLocations]));
         } else {
-            locationThunkDispatch(loadingLocations('episode/?page=1', [startLoadingLocations, successLoadingLocations, errorLoadingLocations]));
+            locationThunkDispatch(loadingLocations('location/?page=1', [startLoadingLocations, successLoadingLocations, errorLoadingLocations]));
         }  
     }, []);
 
@@ -55,16 +57,18 @@ const Locations = () => {
     return (
         <>
             <ButtonBack />
-            {locations.map(location => (
-                <Location
-                    key={location.id}
-                    loc={location}
-                />
-            ))}
+            <div className="locations__wrapper">
+                {locations.map(location => (
+                    <Location
+                        key={location.id}
+                        loca={location}
+                    />
+                ))}
+            </div>
             {isLazyLoading && <div>
                 LOADING...
             </div>}
-            {!params.locationID && <div className="characters__lazy-loading" ref={pageEnd}>
+            {!params.locationsID && <div className="characters__lazy-loading" ref={pageEnd}>
                 Loading
             </div>}
         </>

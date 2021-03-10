@@ -12,7 +12,7 @@ const Episode: React.FC<Props> = ({ epis }) => {
     const { air_date, name, episode, characters } = epis;
     const characterNumbers: Array<string> = [];
 
-    for (let i = 0; i < episode.length; i++) {
+    for (let i = 0; i < characters.length; i++) {
         characterNumbers.push(urlNumber(characters[i]))
     };
 

@@ -11,7 +11,7 @@ import Episode from '../Episode/Episode';
 
 
 type Params = {
-    episodeID: string;
+    episodesID: string;
 };
 
 const Episodes = () => {
@@ -25,8 +25,8 @@ const Episodes = () => {
     let [isLazyLoad, setLazyLoad] = useState(false);
 
     useEffect(() => {
-        if (params.episodeID) {
-            episodeThunkDispatch(loadingEpisodes(`episode/${params.episodeID}`, [startLoadingEpisodes, successLoadingEpisode, errorLoadingEpisodes]));
+        if (params.episodesID) {
+            episodeThunkDispatch(loadingEpisodes(`episode/${params.episodesID}`, [startLoadingEpisodes, successLoadingEpisode, errorLoadingEpisodes]));
         } else {
             episodeThunkDispatch(loadingEpisodes('episode/?page=1', [startLoadingEpisodes, successLoadingEpisodes, errorLoadingEpisodes]));
         }  
@@ -75,7 +75,7 @@ const Episodes = () => {
             {isLazyLoading && <div>
                 LOADING...
             </div>}
-            {!params.episodeID && <div className="characters__lazy-loading" ref={pageEnd}>
+            {!params.episodesID && <div className="characters__lazy-loading" ref={pageEnd}>
                 Loading
             </div>}
         </>
