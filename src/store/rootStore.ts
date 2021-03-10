@@ -5,11 +5,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import charactersReducer, { InitialCharactersState } from './charactersStore';
 import episodesReducer, { InitialEpisodesState } from './episodesStore';
 import locationsReducer, { InitialLocationState } from './locationsStore';
+import searchValueReducer, { InitialSearchValueState } from './searchFieldStore';
 
 const allReducers = combineReducers({
     charactersInfo: charactersReducer,
     episodesInfo: episodesReducer,
     locationInfo: locationsReducer,
+    searchValue: searchValueReducer,
 });
 
 export type ThunkType = ThunkAction<void, State, unknown, Action<string>>;
@@ -18,6 +20,7 @@ export type State = {
     charactersInfo: InitialCharactersState,
     episodesInfo: InitialEpisodesState,
     locationInfo: InitialLocationState,
+    searchValue: InitialSearchValueState
 };
 
 const store: Store<State> = createStore(allReducers, composeWithDevTools(applyMiddleware(thunk)));
@@ -39,5 +42,8 @@ export const isLoadingLocationsSelector = (state: State) => state.locationInfo.i
 export const isLazyLoadingLocationSelector = (state: State) => state.locationInfo.isLazyLoading;
 export const nextLocationsSelector = (state: State) => state.locationInfo.next;
 export const locationsSelector = (state: State) => state.locationInfo.locations;
+
+//search value selector
+export const searchValueSelector = (state: State) => state.searchValue.value;
 
 export default store;
