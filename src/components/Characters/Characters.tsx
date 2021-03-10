@@ -28,10 +28,11 @@ const Characters = () => {
     const params: Params = useParams();
 
     useEffect(() => {
-        if (params.characterID) {
+        if (params.characterID) {  
             personThunkDispatch(loadingCharacters(`character/${params.characterID}`, [startLoadingCharacters, successLoadingCharacter, errorLoading]));
+        } else {
+            personThunkDispatch(loadingCharacters('character/?page=1', [startLoadingCharacters, successLoadingCharacters, errorLoading]));
         }
-        personThunkDispatch(loadingCharacters('character/?page=1', [startLoadingCharacters, successLoadingCharacters, errorLoading]));
     }, []);
 
     useEffect(() => {
@@ -64,17 +65,6 @@ const Characters = () => {
         )
     };
 
-    if (params.characterID) {
-        return (
-            <div>
-                Hello
-            </div>
-        );
-    }
-
-    console.log(params);
-    
-
     return (
         <>
             <ButtonBack />
@@ -89,9 +79,9 @@ const Characters = () => {
             {isLazyLoading && <div>
                 LOADING...
             </div>}
-            <div className="characters__lazy-loading" ref={pageEnd}>
+            {!params.characterID && <div className="characters__lazy-loading" ref={pageEnd}>
                 Loading
-            </div>
+            </div>}
         </>
     );
 };
