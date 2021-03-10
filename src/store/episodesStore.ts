@@ -1,7 +1,6 @@
 import { Action, Dispatch } from 'redux';
-import { ThunkAction } from "redux-thunk";
 import { getData } from '../helpers/api';
-import { State } from "./rootStore";
+import { ThunkType } from './rootStore';
 
 const START_LOADING_EPISODES = 'START_LOADING_EPISODES';
 const SUCCESS_LOADING_EPISODES = 'SUCCESS_LOADING_EPISODES';
@@ -33,7 +32,7 @@ export type ErrorLazyEpisodes = Action<typeof ERROR_LAZY_EPISODES> & {
     isLazyError: boolean;
 }
 export type SuccessLoadingEpisode = Action<typeof SUCCESS_LOADING_EPISODE> & {
-    episode: Character[];
+    episode: Episode[];
 };
 
 export const startLoadingEpisodes = (isLoading: boolean): StartLoadingEpisodes => ({
@@ -62,19 +61,17 @@ export const errorLazyEpisodes = (isLazyError: boolean): ErrorLazyEpisodes => ({
     type: ERROR_LAZY_EPISODES,
     isLazyError,
 });
-export const successLoadingEpisode = (episode: Character[]): SuccessLoadingEpisode => ({
+export const successLoadingEpisode = (episode: Episode[]): SuccessLoadingEpisode => ({
     type: SUCCESS_LOADING_EPISODE,
     episode
 }); 
 
 //thunks
-export type CharactersThunk = ThunkAction<void, State, unknown, Action<string>>;
-
 type StartLoadingEpisodesAC = (isLoading: boolean) => StartLoadingEpisodes;
 type StartLazyEpisodesAC = (isLazyLoading: boolean) => StartLazyEpisodes;
-type SuccessLoadingEpisodesAC = (characters: Character[], next: string | null) => SuccessLoadingEpisodes;
-type SuccessLazyEpisodesAC = (characters: Character[], next: string | null) => SuccessLazyEpisodes;
-type SuccessLoadingEpisodeAC = (character: Character[]) => SuccessLoadingEpisode;
+type SuccessLoadingEpisodesAC = (characters: Episode[], next: string | null) => SuccessLoadingEpisodes;
+type SuccessLazyEpisodesAC = (characters: Episode[], next: string | null) => SuccessLazyEpisodes;
+type SuccessLoadingEpisodeAC = (character: Episode[]) => SuccessLoadingEpisode;
 type ErrorLoadingEpisodesAC = (isError: boolean) => ErrorLoadingEpisodes;
 type ErrorLazyEpisodesAC = (isLazyError: boolean) => ErrorLazyEpisodes;
 
@@ -84,7 +81,7 @@ type ThunkActions = [
     (ErrorLoadingEpisodesAC | ErrorLazyEpisodesAC),
 ];
 
-export const loadingCharacters = (url: string, [startLoading, successLoading, errLoading]: ThunkActions): CharactersThunk => {
+export const loadingEpisodes = (url: string, [startLoading, successLoading, errLoading]: ThunkActions): ThunkType => {
     return (dispatch: Dispatch<AllEpisodesActions>) => {
         dispatch(startLoading(true));
 
@@ -99,7 +96,7 @@ export type InitialEpisodesState = {
     isError: boolean;
     isLazyLoading: boolean;
     isLazyError: boolean;
-    episodes: Array<Character>;
+    episodes: Array<Episode>;
     next: string | null;
 };
 
@@ -123,7 +120,7 @@ const episodesReducer = (state = initialEpisodesState, action: AllEpisodesAction
         };
         case SUCCESS_LOADING_EPISODES: return {
             ...state,
-            characters: [...action.episodes],
+            episodes: [...action.episodes],
             isLoading: false,
             next: action.next
         };
@@ -138,7 +135,7 @@ const episodesReducer = (state = initialEpisodesState, action: AllEpisodesAction
         };
         case SUCCESS_LAZY_EPISODES: return {
             ...state,
-            characters: [...state.episodes, ...action.episodes],
+            episodes: [...state.episodes, ...action.episodes],
             isLazyLoading: false,
             next: action.next,
         };
@@ -148,7 +145,7 @@ const episodesReducer = (state = initialEpisodesState, action: AllEpisodesAction
         };
         case SUCCESS_LOADING_EPISODES: return {
             ...state,
-            characters: [...action.episodes],
+            episodes: [...action.episodes],
             isLazyLoading: false,
         };
                                 
