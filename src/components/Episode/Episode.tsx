@@ -31,14 +31,14 @@ const Episode: React.FC<Props> = ({ epis }) => {
                     </div>
                 </div>
                 <div className="episode__links">
-                    Episodes:
+                    Characters:
                     {characterNumbers.map(number => (
                         <Link
                             key={number}
                             className="episode__link"
                             to={`/characters/${number}`}
                         >
-                            Episode: {number}
+                            Character: {number}
                         </Link>
                     ))}
                 </div>
