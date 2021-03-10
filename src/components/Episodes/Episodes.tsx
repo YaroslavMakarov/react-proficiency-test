@@ -8,6 +8,7 @@ import { errorLazyEpisodes, errorLoadingEpisodes, loadingEpisodes, startLazyEpis
 import { episodesSelector, isLazyLoadingEpisodesSelector, isLoadingEpisodesSelector, nextEpisodesSelector, ThunkType } from '../../store/rootStore';
 import ButtonBack from '../button-back/ButtonBack';
 import Episode from '../Episode/Episode';
+import SearchField from '../SearchField/SearchField';
 
 
 type Params = {
@@ -65,6 +66,7 @@ const Episodes = () => {
 
     return (
         <>
+            <SearchField />
             <ButtonBack />
             {episodes.map(episode => (
                 <Episode
