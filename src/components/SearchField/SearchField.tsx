@@ -4,20 +4,27 @@ import { Dispatch } from 'react';
 
 import './SearchField.scss';
 import { AllSearchValueActions, setSearchValue } from '../../store/searchFieldStore';
+import { useLocation } from 'react-router-dom';
 
 const SearchField = () => {
     const value = useSelector(searchValueSelector);
     const searchValueDispatch = useDispatch<Dispatch<AllSearchValueActions>>();
+    const location = useLocation();
+    const availableURLs = '/characters/locations/episodes';
+
+    const passURL = availableURLs.includes(location.pathname);
+    
 
     return (
         <div>
-            <input
+            {passURL && <input
                 type="text"
                 value={value}
                 onChange={({ target }) => {
                     searchValueDispatch(setSearchValue(target.value))
                 }}
-            />
+                placeholder="search..."
+            />}
         </div>
     );
 };
