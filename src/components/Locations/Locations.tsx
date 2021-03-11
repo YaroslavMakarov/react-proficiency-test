@@ -8,6 +8,7 @@ import { errorLazyLocations, errorLoadingLocations, loadingLocations, startLazyL
 import { isLazyLoadingLocationSelector, isLoadingLocationsSelector, locationsSelector, nextLocationsSelector, ThunkType } from '../../store/rootStore';
 import ButtonBack from '../button-back/ButtonBack';
 import Location from '../Location/Location';
+import SearchField from '../SearchField/SearchField';
 import './Locations.scss';
 
 type Params = {
@@ -56,6 +57,7 @@ const Locations = () => {
 
     return (
         <>
+            <SearchField />
             <ButtonBack />
             <div className="locations__wrapper">
                 {locations.map(location => (

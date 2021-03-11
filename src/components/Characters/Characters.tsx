@@ -12,6 +12,7 @@ import { churactersSelector, isLoadingSelector, nextSelector, ThunkType } from "
 import Character from "../Character/Character";
 import { urlParam } from "../../helpers/urlUtility";
 import ButtonBack from "../button-back/ButtonBack";
+import SearchField from "../SearchField/SearchField";
 
 type Params = {
     characterID: string;
@@ -66,7 +67,8 @@ const Characters = () => {
     };
 
     return (
-        <>
+        <>  
+            <SearchField />
             <ButtonBack />
             <div className="characters__wrapper">
                 {characters.map(character => (
