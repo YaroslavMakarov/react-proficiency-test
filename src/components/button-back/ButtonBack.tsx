@@ -21,7 +21,7 @@ const ButtonBack = () => {
         <span
           className="button-back__text"
         >
-          Back
+          Back1
         </span>
       </div>
     </button>
